@@ -3,8 +3,9 @@ import pandas as pd
 import joblib
 import os
 
-file_path = os.path.join(os.path.dirname(__file__), "food_model.pkl")
-model = joblib.load(file_path)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, "food_model.pkl")
+model = joblib.load(model_path)
 st.title("Food Health Predictor")
 
 calories = st.number_input("Calories")
