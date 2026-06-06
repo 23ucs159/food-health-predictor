@@ -6,7 +6,11 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(BASE_DIR, "food_model.pkl")
 model = joblib.load(model_path)
-st.title("Food Health Predictor")
+
+st.set_page_config(page_title="Food Health Predictor", page_icon="🍎")
+
+st.title("🍎 Food Health Predictor")
+st.write("Enter nutritional values to check if food is Healthy, Moderate, or Unhealthy")
 
 calories = st.number_input("Calories")
 protein = st.number_input("Protein")
@@ -25,5 +29,11 @@ if st.button("Predict"):
         'vitamin_c': vitamin_c
     }])
 
-    result = model.predict(sample)[0].strip()
-    st.success("Result: " + result)
+    result = model.predict(sample)[0].strip().lower()
+
+    if result == "healthy":
+        st.success("🟢 Healthy Food")
+    elif result == "moderate":
+        st.warning("🟡 Moderate Food")
+    else:
+        st.error("🔴 Unhealthy Food")
